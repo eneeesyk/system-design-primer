@@ -67,7 +67,7 @@ Yolda kullanmak için harikadır.
   <br/>
 </p>
 
-Kardeş repoya göz atın: [**Etkileşimli Kodlama Soruları**](https://github.com/donnemartin/interactive-coding-challenges). Bu repoda ek bir Anki destesi de bulunur:
+İlgili kardeş repoyu inceleyin: [**Etkileşimli Kodlama Soruları**](https://github.com/donnemartin/interactive-coding-challenges)
 
 * [Kodlama destesi](https://github.com/donnemartin/interactive-coding-challenges/tree/master/anki_cards/Coding.apkg)
 
@@ -158,7 +158,7 @@ Düzenlenmesi gereken içerikler [geliştirme aşamasında](#under-development) 
         * [Write-through (anında yazma)](#write-through)
         * [Write-behind (arka planda yazma)](#write-behind-write-back)
         * [Refresh-ahead (önceden yenileme)](#refresh-ahead)
-* [Eşzamanlı olmama (asynchronism)](#asynchronism)
+* [Eşzamanlı olmama (asynchronism)](#asynchronism) (Asynchronism)
     * [Mesaj kuyrukları](#message-queues)
     * [Görev kuyrukları](#task-queues)
     * [Geri baskı (back pressure)](#back-pressure)
