@@ -1054,3 +1054,740 @@ Google, ilk geniş sütun deposu olarak [Bigtable](http://www.read.seas.harvard.
 
 Geniş sütun depoları yüksek erişilebilirlik ve yüksek ölçeklenebilirlik sunar. Genellikle çok büyük veri kümeleri için kullanılırlar.
 
+##### Kaynak(lar) ve daha fazla okuma: geniş sütun deposu
+
+* [SQL & NoSQL, kısa bir tarih](http://blog.grio.com/2015/11/sql-nosql-a-brief-history.html)
+* [Bigtable mimarisi](http://www.read.seas.harvard.edu/~kohler/class/cs239-w08/chang06bigtable.pdf)
+* [HBase mimarisi](https://www.edureka.co/blog/hbase-architecture/)
+* [Cassandra mimarisi](http://docs.datastax.com/en/cassandra/3.0/cassandra/architecture/archIntro.html)
+
+#### Graf veritabanı
+
+<p align="center">
+  <img src="images/fNcl65g.png">
+  <br/>
+  <i><a href=https://en.wikipedia.org/wiki/File:GraphDatabase_PropertyGraph.png>Kaynak: Graf veritabanı</a></i>
+</p>
+
+> Soyutlama: graf
+
+Bir graf veritabanında, her düğüm bir kayıttır ve her yay iki düğüm arasındaki bir ilişkidir. Graf veritabanları, birçok yabancı anahtar veya çok-çok ilişkiler içeren karmaşık ilişkileri temsil etmek için optimize edilmiştir.
+
+Graf veritabanları, sosyal ağ gibi karmaşık ilişkilere sahip veri modelleri için yüksek performans sunar. Nispeten yeni olduklarından henüz yaygın olarak kullanılmamaktadır; geliştirme araçları ve kaynakları bulmak daha zor olabilir. Birçok graf sadece [REST API'leri](#representational-state-transfer-rest) ile erişilebilir.
+
+##### Kaynak(lar) ve daha fazla okuma: graf
+
+* [Graf veritabanı](https://en.wikipedia.org/wiki/Graph_database)
+* [Neo4j](https://neo4j.com/)
+* [FlockDB](https://blog.twitter.com/2010/introducing-flockdb)
+
+#### Kaynak(lar) ve daha fazla okuma: NoSQL
+
+* [BASE terminolojisinin açıklaması](http://stackoverflow.com/questions/3342497/explanation-of-base-terminology)
+* [NoSQL veritabanları bir anket ve karar rehberi](https://medium.com/baqend-blog/nosql-databases-a-survey-and-decision-guidance-ea7823a822d#.wskogqenq)
+* [Ölçeklenebilirlik](https://web.archive.org/web/20220602114024/https://www.lecloud.net/post/7994751381/scalability-for-dummies-part-2-database)
+* [NoSQL'e giriş](https://www.youtube.com/watch?v=qI_g07C_Q5I)
+* [NoSQL desenleri](http://horicky.blogspot.com/2009/11/nosql-patterns.html)
+
+### SQL veya NoSQL
+
+<p align="center">
+  <img src="images/wXGqG5f.png">
+  <br/>
+  <i><a href=https://www.infoq.com/articles/Transition-RDBMS-NoSQL/>Kaynak: RDBMS'den NoSQL'e geçiş</a></i>
+</p>
+
+**SQL** için nedenler:
+
+* Yapılandırılmış veri
+* Katı şema
+* İlişkisel veri
+* Karmaşık birleştirmelere ihtiyaç
+* İşlemler
+* Ölçeklendirme için net desenler
+* Daha yerleşik: geliştiriciler, topluluk, kod, araçlar, vb.
+* İndeks ile aramalar çok hızlı
+
+**NoSQL** için nedenler:
+
+* Yarı yapılandırılmış veri
+* Dinamik veya esnek şema
+* İlişkisel olmayan veri
+* Karmaşık birleştirmelere ihtiyaç yok
+* Çok fazla TB (veya PB) veri depolama
+* Çok veri yoğun iş yükü
+* IOPS için çok yüksek verim
+
+NoSQL için uygun örnek veriler:
+
+* Tıklama akışı ve günlük verilerinin hızlı alımı
+* Liderlik tablosu veya puanlama verileri
+* Alışveriş sepeti gibi geçici veriler
+* Sık erişilen ('sıcak') tablolar
+* Meta veri/arama tabloları
+
+##### Kaynak(lar) ve daha fazla okuma: SQL veya NoSQL
+
+* [İlk 10 milyon kullanıcınıza kadar ölçeklendirme](https://www.youtube.com/watch?v=kKjm4ehYiMs)
+* [SQL ve NoSQL arasındaki farklar](https://www.sitepoint.com/sql-vs-nosql-differences/)
+
+## Önbellek
+
+<p align="center">
+  <img src="images/Q6z24La.png">
+  <br/>
+  <i><a href=http://horicky.blogspot.com/2010/10/scalable-system-design-patterns.html>Kaynak: Ölçeklenebilir sistem tasarım desenleri</a></i>
+</p>
+
+Önbellekleme, sayfa yükleme sürelerini iyileştirir ve sunucularınız ve veritabanlarınız üzerindeki yükü azaltabilir. Bu modelde, dağıtıcı önce isteğin daha önce yapılıp yapılmadığını kontrol eder ve gerçek yürütmeyi kaydetmek için önceki sonucu bulmaya çalışır.
+
+Veritabanları genellikle bölümleri arasında okumaların ve yazmaların eşit dağılımından faydalanır. Popüler öğeler dağılımı bozabilir, darboğazlara neden olabilir. Bir veritabanının önüne önbellek koymak, düzensiz yükleri ve trafik artışlarını absorbe etmeye yardımcı olabilir.
+
+### İstemci önbellekleme
+
+Önbellekler istemci tarafında (işletim sistemi veya tarayıcı), [sunucu tarafında](#reverse-proxy-web-server) veya ayrı bir önbellek katmanında bulunabilir.
+
+### CDN önbellekleme
+
+[CDN'ler](#content-delivery-network) bir tür önbellek olarak kabul edilir.
+
+### Web sunucusu önbellekleme
+
+[Ters proxy'ler](#reverse-proxy-web-server) ve [Varnish](https://www.varnish-cache.org/) gibi önbellekler statik ve dinamik içeriği doğrudan sunabilir. Web sunucuları da istekleri önbelleğe alabilir, uygulama sunucularına başvurmadan yanıtlar döndürebilir.
+
+### Veritabanı önbellekleme
+
+Veritabanınız genellikle varsayılan yapılandırmasında, genel bir kullanım durumu için optimize edilmiş bir miktar önbellekleme içerir. Belirli kullanım desenleri için bu ayarları ince ayarlamak performansı daha da artırabilir.
+
+### Uygulama önbellekleme
+
+Memcached ve Redis gibi bellek içi önbellekler, uygulamanız ile veri depolamanız arasındaki anahtar-değer depolarıdır. Veriler RAM'de tutulduğundan, verilerin diskte depolandığı tipik veritabanlarından çok daha hızlıdır. RAM disk'ten daha sınırlıdır, bu nedenle [en az kullanılan (LRU)](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)) gibi [önbellek geçersiz kılma algoritmaları](https://en.wikipedia.org/wiki/Cache_algorithms), 'soğuk' girişleri geçersiz kılmaya ve 'sıcak' verileri RAM'de tutmaya yardımcı olabilir.
+
+Redis'in aşağıdaki ek özellikleri vardır:
+
+* Kalıcılık seçeneği
+* Sıralı kümeler ve listeler gibi yerleşik veri yapıları
+
+Önbelleğe alabileceğiniz ve iki genel kategoriye düşen birden çok seviye vardır: **veritabanı sorguları** ve **nesneler**:
+
+* Satır seviyesi
+* Sorgu seviyesi
+* Tam oluşturulmuş seri hale getirilebilir nesneler
+* Tam oluşturulmuş HTML
+
+Genellikle, klonlama ve otomatik ölçeklendirmeyi daha zor hale getirdiği için dosya tabanlı önbelleklemeden kaçınmaya çalışmalısınız.
+
+### Veritabanı sorgu seviyesinde önbellekleme
+
+Veritabanını her sorguladığınızda, sorguyu bir anahtar olarak hash'leyin ve sonucu önbelleğe kaydedin. Bu yaklaşım, sona erme sorunlarından muzdariptir:
+
+* Karmaşık sorgularla önbelleğe alınmış bir sonucu silmek zordur
+* Bir tablo hücresi gibi bir veri parçası değişirse, değişen hücreyi içerebilecek tüm önbelleğe alınmış sorguları silmeniz gerekir
+
+### Nesne seviyesinde önbellekleme
+
+Verilerinizi, uygulama kodunuzla yaptığınıza benzer şekilde bir nesne olarak görün. Uygulamanızın, veritabanından veri kümesini bir sınıf örneğine veya veri yapısına toplamasını sağlayın:
+
+* Temel verileri değişmişse nesneyi önbellekten kaldırın
+* Asenkron işlemeye izin verir: işçiler, en son önbelleğe alınmış nesneyi tüketerek nesneleri toplar
+
+Önbelleğe alınacak öneriler:
+
+* Kullanıcı oturumları
+* Tam oluşturulmuş web sayfaları
+* Aktivite akışları
+* Kullanıcı grafik verileri
+
+### Önbellek ne zaman güncellenmeli
+
+Önbellekte sınırlı miktarda veri depolayabileceğiniz için, kullanım durumunuz için hangi önbellek güncelleme stratejisinin en iyi çalıştığını belirlemeniz gerekecek.
+
+#### Önbellek-kenarda
+
+<p align="center">
+  <img src="images/ONjORqk.png">
+  <br/>
+  <i><a href=http://www.slideshare.net/tmatyashovsky/from-cache-to-in-memory-data-grid-introduction-to-hazelcast>Kaynak: Önbellekten bellek içi veri ızgarasına</a></i>
+</p>
+
+Uygulama, depolamadan okuma ve yazmadan sorumludur. Önbellek doğrudan depolama ile etkileşime girmez. Uygulama aşağıdakileri yapar:
+
+* Önbellekte girişi arar, önbellek ıskalanır
+* Girişi veritabanından yükler
+* Girişi önbelleğe ekler
+* Girişi döndürür
+
+```python
+def get_user(self, user_id):
+    user = cache.get("user.{0}", user_id)
+    if user is None:
+        user = db.query("SELECT * FROM users WHERE user_id = {0}", user_id)
+        if user is not None:
+            key = "user.{0}".format(user_id)
+            cache.set(key, json.dumps(user))
+    return user
+```
+
+[Memcached](https://memcached.org/) genellikle bu şekilde kullanılır.
+
+Önbelleğe eklenen verilerin sonraki okumaları hızlıdır. Önbellek-kenarda ayrıca tembel yükleme olarak da adlandırılır. Sadece istenen veriler önbelleğe alınır, bu da önbelleği istenmeyen verilerle doldurmaktan kaçınır.
+
+##### Dezavantaj(lar): önbellek-kenarda
+
+* Her önbellek ıskalanması üç yolculuğa neden olur, bu da fark edilebilir bir gecikmeye neden olabilir.
+* Veriler, veritabanında güncellenirse eskiyebilir. Bu sorun, önbellek girişinin güncellenmesini zorlayan bir yaşam süresi (TTL) ayarlayarak veya yazma-geçişli kullanarak hafifletilir.
+* Bir düğüm başarısız olduğunda, yeni, boş bir düğümle değiştirilir, gecikmeyi artırır.
+
+#### Yazma-geçişli
+
+<p align="center">
+  <img src="images/0vBc0hN.png">
+  <br/>
+  <i><a href=http://www.slideshare.net/jboner/scalability-availability-stability-patterns/>Kaynak: Ölçeklenebilirlik, erişilebilirlik, kararlılık desenleri</a></i>
+</p>
+
+Uygulama, veritabanına ve önbelleğe birlikte yazar. Önbellek, veritabanı ile eşzamanlı olarak güncellenir. Bu yaklaşım, önbelleğin veritabanı ile tutarlı kalmasını sağlar ve önbellek ıskalanması durumunda veritabanından okuma gereksinimini ortadan kaldırır.
+
+Yazma-geçişli, önbellek-kenarda ile birlikte kullanılabilir. Uygulama aşağıdakileri yapar:
+
+* Önbellekte girişi arar, önbellek ıskalanır
+* Girişi veritabanından yükler
+* Girişi önbelleğe ekler
+* Girişi döndürür
+* Veritabanını günceller
+* Önbelleği günceller
+
+##### Dezavantaj(lar): yazma-geçişli
+
+* Önbelleğe yazma başarısız olduğunda, veritabanı ve önbellek arasında tutarsızlık oluşabilir.
+* Çoğu sistemde, uygulama, önbelleğe yazma başarısız olduğunda önbelleği geçersiz kılarak bu sorunu hafifletir.
+* Önbelleğe yazma, veritabanına yazma ile karşılaştırıldığında daha fazla kaynak gerektirebilir.
+
+#### Yazma-arkada (yazma-geri)
+
+<p align="center">
+  <img src="images/rgSrvjG.png">
+  <br/>
+  <i><a href=http://www.slideshare.net/jboner/scalability-availability-stability-patterns/>Kaynak: Ölçeklenebilirlik, erişilebilirlik, kararlılık desenleri</a></i>
+</p>
+
+Yazma-arkada, uygulama aşağıdakileri yapar:
+
+* Girişi önbelleğe ekler
+* Başarı sinyali döndürür
+* Önbellek, veritabanını asenkron olarak günceller
+
+##### Dezavantaj(lar): yazma-arkada
+
+* Önbellek, veritabanını güncellemeden önce bir düğüm başarısız olursa veri kaybı olabilir.
+* Veritabanını güncellemek için daha karmaşık bir sistem gerekebilir.
+
+#### Yenileme-öncesi
+
+You can configure the cache to automatically refresh any recently accessed cache entry prior to its expiration.
+
+Yenileme-öncesi, önbelleği, sona ermeden önce yakın zamanda erişilen herhangi bir önbellek girişini otomatik olarak yenileyecek şekilde yapılandırabilirsiniz.
+
+##### Dezavantaj(lar): yenileme-öncesi
+
+* Nadiren istenen veriler, sık istenen veriler gibi yenilenir, bu da kaynak israfına neden olabilir.
+
+### Dezavantaj(lar): önbellek
+
+* Tutarlı bir önbellek stratejisi sürdürmek zor olabilir.
+* Önbellek geçersiz kılma stratejisini değiştirmek zor olabilir.
+* Önbelleğe alınmış verileri geçersiz kılmak için kod eklenmesi gerekir.
+* Bir düğüm başarısız olduğunda, yeni, boş bir düğümle değiştirilmesi gerekir, bu da gecikmeyi artırır.
+
+### Kaynak(lar) ve daha fazla okuma: önbellek
+
+* [Ölçeklenebilirlik: Önbellek](https://web.archive.org/web/20220530193911/https://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache)
+* [Wikipedia: Önbellek algoritmaları](https://en.wikipedia.org/wiki/Cache_algorithms)
+* [Önbellek geçersiz kılma stratejileri](https://redis.io/docs/manual/client-side-caching/)
+* [Önbellek desenleri](http://horicky.blogspot.com/2010/10/scalable-system-design-patterns.html)
+
+## Asenkronizm
+
+<p align="center">
+  <img src="images/54GYsSx.png">
+  <br/>
+  <i><a href=http://lethain.com/introduction-to-architecting-systems-for-scale/#platform_layer>Kaynak: Ölçek için sistemleri tasarlamaya giriş</a></i>
+</p>
+
+Asenkronizm, istek-yanıt döngüsünden bağımsız olarak çalışan bileşenlerin bağlantısını keser, böylece bileşenin işlemi arka planda tamamlamasına izin verir. Bu yaklaşım, istemcinin yanıt beklemeden istekleri hızla gönderebilmesini sağlayarak gecikmeyi azaltır. Asenkronizm ayrıca, uzun süreli işlemlerin arka planda çalışmasına izin vererek yanıt süresini iyileştirir.
+
+Asenkronizm, aşağıdaki gibi çeşitli şekillerde uygulanabilir:
+
+* İstemciye bir görev kimliği döndürün ve istemcinin daha sonra durumu kontrol etmesine izin verin.
+* İstemciye bir geri arama URL'si sağlayın ve işlem tamamlandığında istemciyi bilgilendirin.
+* İstemci, uzun süreli bir bağlantı açar ve sunucu, yanıtlar hazır olduğunda bu bağlantı üzerinden veri gönderir.
+* İstemci, sunucudan mesaj almak için bir mesaj kuyruğunu dinler.
+
+İstemci-sunucu iletişimini asenkron hale getirmek, ölçeklenebilirliği artırabilir ve gecikmeyi azaltabilir.
+
+### İleti kuyrukları
+
+İleti kuyrukları, üreticiler ve tüketiciler arasında bir arabellek görevi görür ve üreticilerin ve tüketicilerin farklı hızlarda çalışmasına izin verir. İleti kuyruğu, üreticiler ve tüketiciler arasında bir tampon görevi görür, böylece ani trafik artışları sırasında arka uç hizmetlerinin aşırı yüklenmesini önler.
+
+[Redis](https://redis.io/) gibi bazı uygulamalar, ileti kuyruğu işlevselliği sağlar. Redis, hafif bir mesaj aracısı olarak kullanılabilir, ancak mesajlar RAM'de tutulduğundan veri kaybı olabilir.
+
+[RabbitMQ](https://www.rabbitmq.com/), [Amazon SQS](https://aws.amazon.com/sqs/) ve [Kafka](https://kafka.apache.org/) gibi diğer araçlar, daha güvenilir bir ileti kuyruğu hizmeti sağlar. Bu araçlar, mesajların kalıcı olmasını ve yüksek erişilebilirlik sağlar, ancak daha yüksek gecikme sürelerine sahip olabilir. Bu araçlar ayrıca, mesajların belirli bir süre sonra yeniden gönderilmesini sağlayan mesaj yeniden deneme özelliği gibi ek özellikler sunar.
+
+### Görev kuyrukları
+
+Görevler genellikle kısa ömürlü, tekrar edilebilir ve bağımsız birimler olarak tanımlanır. Görev kuyrukları, görevleri işçilere dağıtır ve sonuçları toplar. Görev kuyrukları, görevlerin paralel olarak çalıştırılmasına izin verir, böylece sistem performansını artırır.
+
+[Celery](https://docs.celeryq.dev/en/stable/) gibi arka plan işlem çerçeveleri, görev kuyruklarını yönetmek için kullanılabilir. Celery, görevleri işçilere dağıtır ve sonuçları toplar. Celery, [RabbitMQ](https://www.rabbitmq.com/), [Redis](https://redis.io/) veya veritabanları gibi ileti aracıları ile çalışır.
+
+### Geri basınç
+
+Geri basınç, aşırı yüklenmiş bir bileşenin, gelen istekleri yavaşlatmak veya reddetmek için yukarı akış bileşenlerine sinyal göndermesidir. Geri basınç, sistemin aşırı yüklenmesini önler ve sistemin kararlı kalmasını sağlar.
+
+Geri basınç, aşağıdaki gibi çeşitli şekillerde uygulanabilir:
+
+* [HTTP 503 Hizmet Kullanılamıyor](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_Server_Error) yanıtı döndürün ve [Retry-After](https://tools.ietf.org/html/rfc7231#section-7.1.3) başlığını ayarlayın
+* İstekleri sınırlandırın (hız sınırlama)
+* Kuyruk boyutunu sınırlandırın
+* Akış kontrolü (TCP akış kontrolü, [TCP pencere boyutu](https://en.wikipedia.org/wiki/TCP_tuning))
+
+### Dezavantaj(lar): asenkronizm
+
+* Asenkron sistemleri tasarlamak ve hata ayıklamak daha karmaşıktır.
+* İleti kuyruklarını yönetmek için ek bileşenler gerekebilir, bu da sistem karmaşıklığını artırır.
+* Asenkron işlemlerin durumunu izlemek için ek kod gerekebilir.
+
+### Kaynak(lar) ve daha fazla okuma: asenkronizm
+
+* [Ölçek için sistemleri tasarlamaya giriş](http://lethain.com/introduction-to-architecting-systems-for-scale)
+* [Asenkron işleme nedir?](https://www.quora.com/What-is-async-processing)
+* [Asenkron vs senkron yürütme ne zaman kullanılmalı?](https://stackoverflow.com/questions/748175/asynchronous-vs-synchronous-execution-what-does-it-really-mean)
+* [Asenkron Python ile I/O sınırlı web uygulamalarını ölçeklendirme](https://blog.kgriffs.com/2012/12/18/uwsgi-vs-gunicorn-vs-node-benchmarks.html)
+
+## İletişim
+
+<p align="center">
+  <img src="images/5KeocQs.jpg">
+  <br/>
+  <i><a href=http://www.escotal.com/osilayer.html>Kaynak: OSI 7 katman modeli</a></i>
+</p>
+
+### Hypertext transfer protocol (HTTP)
+
+HTTP, istemci-sunucu iletişimi için bir yöntemdir. İstemci, sunucuya bir istek gönderir ve sunucu bir yanıt döndürür.
+
+Temel HTTP isteği bileşenleri:
+
+* Bir HTTP fiili (GET, POST, PUT, DELETE, HEAD, OPTIONS)
+* Bir kaynak yolu
+* Bir HTTP protokol sürümü
+* İsteğe bağlı başlıklar
+* İsteğe bağlı gövde
+
+Temel HTTP yanıt bileşenleri:
+
+* Bir durum/yanıt kodu
+* Bir durum mesajı
+* Bir HTTP protokol sürümü
+* İsteğe bağlı başlıklar
+* İsteğe bağlı gövde
+
+### Transmission control protocol (TCP)
+
+<p align="center">
+  <img src="images/JdAsdvG.jpg">
+  <br/>
+  <i><a href=http://www.wildbunny.co.uk/blog/2012/10/09/how-to-make-a-multi-player-game-part-1/>Kaynak: Çok oyunculu bir oyun nasıl yapılır</a></i>
+</p>
+
+TCP, iki ana bilgisayar arasında bağlantı kurulmasını sağlar ve veri paketlerinin aşağıdaki özelliklere sahip olmasını sağlar:
+
+* Güvenilir teslim
+* Sıralı teslim
+* Hata kontrolü
+* Akış kontrolü
+* Tıkanıklık kontrolü
+
+TCP'nin yaygın kullanım alanları:
+
+* Web sunucuları
+* Veritabanı bağlantıları
+* SMTP, POP, IMAP gibi e-posta uygulamaları
+
+### User datagram protocol (UDP)
+
+<p align="center">
+  <img src="images/yzDrJtA.jpg">
+  <br/>
+  <i><a href=http://www.wildbunny.co.uk/blog/2012/10/09/how-to-make-a-multi-player-game-part-1/>Kaynak: Çok oyunculu bir oyun nasıl yapılır</a></i>
+</p>
+
+UDP, iki ana bilgisayar arasında bağlantı kurmadan veri paketlerinin gönderilmesini sağlar. UDP, aşağıdaki özelliklere sahiptir:
+
+* Güvenilir olmayan teslim
+* Sırasız teslim
+* Basit hata kontrolü (sağlama toplamı)
+* Akış kontrolü yok
+* Tıkanıklık kontrolü yok
+
+UDP'nin yaygın kullanım alanları:
+
+* Canlı video ve ses yayını
+* DNS aramaları
+* VoIP
+* Çevrimiçi çok oyunculu oyunlar
+
+### Uzaktan prosedür çağrısı (RPC)
+
+<p align="center">
+  <img src="images/iF4Mkb5.png">
+  <br/>
+  <i><a href=http://www.puncsky.com/blog/2016/01/29/rpc-vs-rest/>Kaynak: RPC vs REST</a></i>
+</p>
+
+RPC'de bir istemci, uzak bir sunucudaki bir prosedürü çağırır. RPC istemcisi, sunucuyla doğrudan iletişim kurar:
+
+```
+* İstemci prosedür çağrısı -> İstemci RPC kütüphanesi -> Ağ -> Sunucu RPC kütüphanesi -> Sunucu prosedür çağrısı
+* İstemci prosedür dönüşü <- İstemci RPC kütüphanesi <- Ağ <- Sunucu RPC kütüphanesi <- Sunucu prosedür dönüşü
+```
+
+RPC, istemcinin uzak bir prosedürü yerel bir prosedür gibi çağırmasına olanak tanır. RPC çerçeveleri, aşağıdaki özellikleri sağlar:
+
+* **Basitlik** - RPC, dağıtılmış sistemlerde iletişim için basit bir model sağlar.
+* **Gizleme** - RPC, ağ iletişiminin karmaşıklığını gizler.
+* **Tip kontrolü** - Birçok RPC çerçevesi, tip kontrolü sağlar.
+* **Çapraz dil desteği** - Bazı RPC çerçeveleri, farklı programlama dillerinde yazılmış hizmetler arasında iletişim sağlar.
+
+Popüler RPC çerçeveleri:
+
+* [gRPC](https://www.grpc.io/)
+* [Thrift](https://thrift.apache.org/)
+* [Avro](https://avro.apache.org/docs/current/)
+
+#### Dezavantaj(lar): RPC
+
+* RPC, istemcinin ve sunucunun aynı anda çalışmasını gerektirir.
+* RPC, istemcinin ve sunucunun aynı arayüzü paylaşmasını gerektirir.
+* RPC, istemcinin ve sunucunun aynı veri tiplerini kullanmasını gerektirir.
+* RPC, istemcinin ve sunucunun aynı seri hale getirme formatını kullanmasını gerektirir.
+* RPC, istemcinin ve sunucunun aynı protokolü kullanmasını gerektirir.
+
+### Temsili durum transferi (REST)
+
+REST, dağıtılmış sistemlerde iletişim için bir mimari stildir. REST, aşağıdaki özelliklere sahiptir:
+
+* **İstemci-sunucu** - İstemci ve sunucu ayrı ayrı geliştirilir.
+* **Durumsuz** - Sunucu, istemci durumunu saklamaz.
+* **Önbelleğe alınabilir** - Yanıtlar, önbelleğe alınabilir olarak işaretlenebilir.
+* **Katmanlı sistem** - İstemci ve sunucu arasında birden fazla katman olabilir.
+* **Tekdüze arayüz** - İstemci ve sunucu arasındaki arayüz tekdüzedir.
+* **İsteğe bağlı kod** - Sunucu, istemciye kod gönderebilir.
+
+REST, HTTP üzerinden JSON veya XML gibi veri formatlarını kullanarak iletişim kurar. REST, aşağıdaki HTTP fiillerini kullanır:
+
+* **GET** - Bir kaynağı okur
+* **POST** - Yeni bir kaynak oluşturur
+* **PUT** - Mevcut bir kaynağı günceller
+* **DELETE** - Bir kaynağı siler
+* **PATCH** - Bir kaynağı kısmen günceller
+
+#### Dezavantaj(lar): REST
+
+* REST, istemcinin ve sunucunun aynı veri formatını kullanmasını gerektirir.
+* REST, istemcinin ve sunucunun aynı protokolü kullanmasını gerektirir.
+* REST, istemcinin ve sunucunun aynı URL yapısını kullanmasını gerektirir.
+* REST, istemcinin ve sunucunun aynı durum kodlarını kullanmasını gerektirir.
+
+### RPC ve REST karşılaştırması
+
+| RPC | REST |
+|---|---|
+| Prosedür odaklı | Kaynak odaklı |
+| Eylem adları (getUser) | HTTP fiilleri (GET /users/:id) |
+| Daha az HTTP özellikleri kullanır | Daha fazla HTTP özellikleri kullanır |
+| Daha az tarayıcı desteği | Daha fazla tarayıcı desteği |
+| Daha az önbelleğe alma | Daha fazla önbelleğe alma |
+| Daha az ölçeklenebilir | Daha fazla ölçeklenebilir |
+| Daha az keşfedilebilir | Daha fazla keşfedilebilir |
+
+### Kaynak(lar) ve daha fazla okuma: iletişim
+
+* [Ağ protokolleri](https://www.destroyallsoftware.com/compendium/network-protocols?share_key=97d3ba4c24d21147)
+* [Çok oyunculu bir oyun nasıl yapılır](http://www.wildbunny.co.uk/blog/2012/10/09/how-to-make-a-multi-player-game-part-1/)
+* [TCP/IP Protokol Paketi](https://en.wikipedia.org/wiki/Internet_protocol_suite)
+* [TCP ve UDP Arasındaki Fark Nedir?](https://www.diffen.com/difference/TCP_vs_UDP)
+* [TCP/IP Modeli](https://en.wikipedia.org/wiki/Internet_protocol_suite)
+* [Ağ Protokolleri Nelerdir?](https://www.lifewire.com/definition-of-protocol-network-817949)
+* [OSI Modeli Nedir?](https://www.cloudflare.com/learning/ddos/glossary/open-systems-interconnection-model-osi/)
+* [Bir Ağ Protokolü Nedir?](https://www.lifewire.com/definition-of-protocol-network-817949)
+* [RPC vs REST](http://www.puncsky.com/blog/2016/01/29/rpc-vs-rest/)
+* [gRPC Nedir?](https://www.grpc.io/docs/what-is-grpc/introduction/)
+* [REST API Nedir?](https://restfulapi.net/)
+* [HTTP Nedir?](https://www.w3schools.com/whatis/whatis_http.asp)
+* [HTTP/2 Nedir?](https://web.dev/performance-http2/)
+* [HTTP/3 Nedir?](https://blog.cloudflare.com/http3-the-past-present-and-future/)
+* [WebSocket Nedir?](https://en.wikipedia.org/wiki/WebSocket)
+* [WebRTC Nedir?](https://webrtc.org/)
+
+## Güvenlik
+
+Bu bölüm, güvenlik en iyi uygulamalarının ve bazı temel kavramların bir özetini sunar.
+
+### Güvenli olmayan doğrudan nesne referanslarını önleyin
+
+Doğrudan nesne referansı, bir kullanıcının bir dosya, dizin veya veritabanı anahtarı gibi bir dahili uygulama nesnesine erişmesine izin verir. Güvenlik kontrolü olmadan, saldırganlar bu referansları yetkisiz verilere erişmek için değiştirebilir.
+
+Önleme:
+* Her kullanıcı için dolaylı nesne referansları kullanın
+* Erişim kontrolü veya diğer korumalar ile doğrulayın
+
+### Siteler arası komut dosyası çalıştırmayı (XSS) önleyin
+
+XSS, saldırganların istemci tarafı komut dosyalarını başka bir kullanıcının tarayıcısına enjekte etmesine olanak tanır. Bu saldırılar, kullanıcının tarayıcısı saldırganın komut dosyasına güvendiğinde gerçekleşir.
+
+Önleme:
+* Güvenilmeyen verileri HTML içeriğinden, tarayıcı API'lerinden, JavaScript'ten ve CSS'den kaçının
+* Güvenilmeyen verileri HTML özniteliklerinden kaçının
+* Otomatik kaçış kütüphaneleri kullanın
+* Content Security Policy (CSP) uygulayın
+
+### SQL enjeksiyonunu önleyin
+
+SQL enjeksiyonu, saldırganların güvenilmeyen verileri bir sorgunun bir parçası olarak veritabanına göndermesine olanak tanır. Bu, saldırganın veritabanı komutlarını yürütmesine izin verebilir.
+
+Önleme:
+* Parametreli sorgular kullanın
+* Saklı prosedürler kullanın
+* Kaçış karakterleri kullanın
+* ORM kullanın
+
+### Siteler arası istek sahteciliğini (CSRF) önleyin
+
+CSRF, saldırganların oturum açmış bir kullanıcının tarayıcısını, kullanıcının oturum açtığı bir web uygulamasına istenmeyen istekler göndermeye zorlar.
+
+Önleme:
+* Durum değiştiren istekler için benzersiz bir belirteç kullanın
+* Belirteci doğrulayın
+* SameSite çerezleri kullanın
+* Origin ve Referer başlıklarını kontrol edin
+
+### Hassas verileri koruyun
+
+Hassas veriler, özel olarak korunması gereken verilerdir. Bu veriler, kredi kartı numaraları, sosyal güvenlik numaraları, sağlık kayıtları, kişisel bilgiler ve iş sırları gibi bilgileri içerebilir.
+
+Önleme:
+* Hassas verileri şifreleyin
+* Hassas verileri önbelleğe almayın
+* Hassas verileri günlüğe kaydetmeyin
+* Hassas verileri URL'lerde göndermeyin
+* TLS kullanın
+* Güçlü şifreleme algoritmaları kullanın
+* Uygun anahtar yönetimi uygulayın
+
+### Güvenlik başlıklarını uygulayın
+
+Güvenlik başlıkları, tarayıcıların web uygulamanızı nasıl işleyeceğini kontrol eder. Bu başlıklar, XSS, CSRF ve diğer saldırılara karşı koruma sağlar.
+
+Önleme:
+* HTTP Strict Transport Security (HSTS) uygulayın
+* Content Security Policy (CSP) uygulayın
+* X-Content-Type-Options uygulayın
+* X-Frame-Options uygulayın
+* X-XSS-Protection uygulayın
+
+### Oturum yönetimini güvenli hale getirin
+
+Oturum yönetimi, kullanıcıların kimlik doğrulamasını ve oturumlarını yönetir. Güvenli olmayan oturum yönetimi, hesap ele geçirme ve oturum kaçırma saldırılarına yol açabilir.
+
+Önleme:
+* Güçlü oturum kimlikleri kullanın
+* Oturum kimliklerini URL'lerde göndermeyin
+* Oturum kimliklerini çerezlerde saklayın
+* Secure ve HttpOnly bayraklarını ayarlayın
+* Oturum zaman aşımı uygulayın
+* Oturum geçersiz kılma uygulayın
+* Oturum sabitlemesini önleyin
+
+### Kaynak(lar) ve daha fazla okuma: güvenlik
+
+* [OWASP İlk 10 Web Uygulama Güvenlik Riskleri](https://owasp.org/www-project-top-ten/)
+* [OWASP Kopya Kağıdı: XSS Önleme](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+* [OWASP Kopya Kağıdı: SQL Enjeksiyonu Önleme](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
+* [OWASP Kopya Kağıdı: CSRF Önleme](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
+* [OWASP Kopya Kağıdı: Kimlik Doğrulama](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
+* [OWASP Kopya Kağıdı: Oturum Yönetimi](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)
+* [OWASP Kopya Kağıdı: Transport Layer Protection](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html)
+* [OWASP Kopya Kağıdı: Güvenli Kodlama](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Coding_Cheat_Sheet.html)
+* [OWASP Kopya Kağıdı: Hassas Veri Açığa Çıkma](https://cheatsheetseries.owasp.org/cheatsheets/Sensitive_Data_Exposure_Cheat_Sheet.html)
+* [OWASP Kopya Kağıdı: Güvenlik Başlıkları](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html)
+
+## Ek
+
+### İki üssü tablosu
+
+```
+Güç           Değer         Yakl.         Tam
+---------------------------------------------------------------
+2^0           1
+2^1           2
+2^2           4
+2^3           8
+2^4           16
+2^5           32
+2^6           64
+2^7           128
+2^8           256
+2^9           512
+2^10          1024         1 bin         1,024
+2^16          65536        64 K         65,536
+2^20          1048576      1 M          1,048,576
+2^30          1073741824   1 G          1,073,741,824
+2^32          4294967296   4 G          4,294,967,296
+2^40          1099511628   1 T          1,099,511,628,
+```
+
+### Her programcının bilmesi gereken gecikme sayıları
+
+```
+Gecikme Referans Sayıları
+--------------------------
+L1 önbellek referansı                           0.5 ns
+Dal yanlış tahmini                             5   ns
+L2 önbellek referansı                           7   ns
+Mutex kilidi/açma                              25   ns
+Ana bellek referansı                          100   ns
+Sıkıştırılmış 1K bayt zippy ile sıkıştırma    10,000   ns
+1 Gbps üzerinden ağ üzerinden 2K bayt gönderme 20,000   ns
+SSD rastgele okuma                           150,000   ns
+Disk arama                               10,000,000   ns
+Diskten 1 MB ardışık okuma               20,000,000   ns
+Ağ üzerinden California'dan Hollanda'ya paket gönderme ve geri alma 150,000,000   ns
+```
+
+### Ek sistem tasarım görüşme soruları
+
+| Soru | Referans(lar) |
+|---|---|
+| Dropbox, Google Drive, vb. gibi bir dosya depolama ve paylaşım hizmeti tasarlayın | [youtube.com](https://www.youtube.com/watch?v=U0xTu6E2CT8) |
+| Messenger gibi bir sohbet uygulaması tasarlayın | [youtube.com](https://www.youtube.com/watch?v=zKPNUMkwOJE) |
+| Twitter gibi bir mikroblog platformu tasarlayın | [youtube.com](https://www.youtube.com/watch?v=KmAyPUv9gOY) |
+| Facebook, LinkedIn, vb. gibi bir sosyal ağ tasarlayın | [youtube.com](https://www.youtube.com/watch?v=mDdgfyRB5kg) |
+| Yelp, Foursquare gibi bir yer tabanlı hizmet tasarlayın | [youtube.com](https://www.youtube.com/watch?v=M89XFXTf0kU) |
+| Bit.ly gibi bir URL kısaltıcı tasarlayın | [youtube.com](https://www.youtube.com/watch?v=JQDHz72OA3c) |
+| WhatsApp gibi bir mesajlaşma uygulaması tasarlayın | [youtube.com](https://www.youtube.com/watch?v=5m0L0k8ZtEs) |
+| Instagram, Flickr, vb. gibi bir fotoğraf paylaşım hizmeti tasarlayın | [youtube.com](https://www.youtube.com/watch?v=VkTCL6Nqm6Y) |
+
+### Gerçek dünya mimarileri
+
+> Seçilen makaleler, sistem tasarımı konusunda daha fazla bilgi edinmek için
+
+| Tür | Sistem | Referans(lar) |
+|---|---|---|
+| Veri İşleme | **MapReduce** - Google'ın büyük veri kümeleri üzerinde dağıtılmış işleme için programlama modeli | [research.google.com](http://static.googleusercontent.com/media/research.google.com/zh-CN/us/archive/mapreduce-osdi04.pdf) |
+| Veri İşleme | **Spark** - Dağıtılmış programlama çerçevesi | [slideshare.net](https://www.slideshare.net/intertotech/spark-architecture) |
+| Veri İşleme | **Storm** - Dağıtılmış gerçek zamanlı hesaplama sistemi | [storm.apache.org](http://storm.apache.org/) |
+| Veri Depolama | **Bigtable** - Google'ın yapılandırılmış veri depolama sistemi | [harvard.edu](http://www.read.seas.harvard.edu/~kohler/class/cs239-w08/chang06bigtable.pdf) |
+| Veri Depolama | **HBase** - Hadoop veritabanı, Bigtable'ın açık kaynak uygulaması | [hbase.apache.org](https://hbase.apache.org/) |
+| Veri Depolama | **Cassandra** - Facebook'un dağıtılmış depolama sistemi | [cassandra.apache.org](https://cassandra.apache.org/) |
+| Veri Depolama | **DynamoDB** - Amazon'un belge veritabanı | [amazon.com](https://aws.amazon.com/dynamodb/) |
+| Veri Depolama | **MongoDB** - Belge veritabanı | [mongodb.com](https://www.mongodb.com/) |
+| Veri Depolama | **Spanner** - Google'ın global dağıtılmış veritabanı | [research.google.com](http://research.google.com/archive/spanner-osdi2012.pdf) |
+| Veri Depolama | **Memcached** - Dağıtılmış bellek önbellekleme sistemi | [memcached.org](https://memcached.org/) |
+| Veri Depolama | **Redis** - Kalıcı bellek içi anahtar-değer deposu | [redis.io](https://redis.io/) |
+| Veri Depolama | **Zookeeper** - Dağıtılmış yapılandırma ve koordinasyon hizmeti | [zookeeper.apache.org](https://zookeeper.apache.org/) |
+| Veri Depolama | **Etcd** - Anahtar-değer deposu | [etcd.io](https://etcd.io/) |
+| Veri Depolama | **Elasticsearch** - Dağıtılmış arama motoru | [elastic.co](https://www.elastic.co/) |
+| İletişim | **Kafka** - LinkedIn'in mesaj kuyruğu sistemi | [kafka.apache.org](https://kafka.apache.org/) |
+| İletişim | **RabbitMQ** - Mesaj aracısı | [rabbitmq.com](https://www.rabbitmq.com/) |
+
+### Şirket mimarileri
+
+| Şirket | Referans(lar) |
+|---|---|
+| Amazon | [Amazon Architecture](http://highscalability.com/amazon-architecture) |
+| Cinchcast | [Cinchcast Architecture](http://highscalability.com/blog/2012/7/16/cinchcast-architecture-producing-1500-hours-of-audio-every-d.html) |
+| DataSift | [DataSift Architecture](http://highscalability.com/blog/2011/11/29/datasift-architecture-realtime-datamining-at-120000-tweets-p.html) |
+| DropBox | [DropBox Architecture](http://highscalability.com/blog/2011/3/14/how-dropbox-did-it-and-how-python-helped.html) |
+| ESPN | [ESPN Architecture](http://highscalability.com/blog/2013/11/4/espns-architecture-at-scale-operating-at-100000-duh-nuh-nuhs.html) |
+| Google | [Google Architecture](http://highscalability.com/google-architecture) |
+| Instagram | [Instagram Architecture](http://highscalability.com/blog/2011/12/6/instagram-architecture-14-million-users-terabytes-of-photos.html) |
+| Justin.tv | [Justin.tv Architecture](http://highscalability.com/blog/2010/3/16/justintvs-live-video-broadcasting-architecture.html) |
+| Facebook | [Facebook Architecture](https://www.youtube.com/watch?v=oodS71YtkGU) |
+| Flickr | [Flickr Architecture](http://highscalability.com/flickr-architecture) |
+| Mailbox | [Mailbox Architecture](http://highscalability.com/blog/2013/6/18/scaling-mailbox-from-0-to-one-million-users-in-6-weeks-and-1.html) |
+| Netflix | [Netflix Architecture](http://highscalability.com/blog/2011/12/12/netflix-developing-deploying-and-supporting-software-accordi.html) |
+| Pinterest | [Pinterest Architecture](http://highscalability.com/blog/2012/5/21/pinterest-architecture-update-18-million-visitors-10x-growth.html) |
+| Playfish | [Playfish Architecture](http://highscalability.com/blog/2010/9/21/playfishs-social-gaming-architecture-50-million-monthly-user.html) |
+| PlentyOfFish | [PlentyOfFish Architecture](http://highscalability.com/plentyoffish-architecture) |
+| Salesforce | [Salesforce Architecture](http://highscalability.com/blog/2013/9/23/salesforce-architecture-how-they-handle-13-billion-transacti.html) |
+| Stack Overflow | [Stack Overflow Architecture](http://highscalability.com/blog/2009/8/5/stack-overflow-architecture.html) |
+| TripAdvisor | [TripAdvisor Architecture](http://highscalability.com/blog/2011/6/27/tripadvisor-architecture-40m-visitors-200m-dynamic-page-view.html) |
+| Tumblr | [Tumblr Architecture](http://highscalability.com/blog/2012/2/13/tumblr-architecture-15-billion-page-views-a-month-and-harder.html) |
+| Twitter | [Twitter Architecture](http://highscalability.com/blog/2013/7/8/the-architecture-twitter-uses-to-deal-with-150m-active-users.html) |
+| Uber | [Uber Architecture](http://highscalability.com/blog/2015/9/14/how-uber-scales-their-real-time-market-platform.html) |
+| WhatsApp | [WhatsApp Architecture](http://highscalability.com/blog/2014/2/26/the-whatsapp-architecture-facebook-bought-for-19-billion.html) |
+| YouTube | [YouTube Architecture](http://highscalability.com/youtube-architecture) |
+
+### Şirket mühendislik blogları
+
+> Seçilen şirket mühendislik blogları, sistem tasarımı konusunda daha fazla bilgi edinmek için
+
+* [Airbnb Engineering](https://medium.com/airbnb-engineering)
+* [Amazon Builders Library](https://aws.amazon.com/builders-library/)
+* [Atlassian Engineering](https://blog.developer.atlassian.com/)
+* [Discord Engineering](https://discord.com/blog/engineering)
+* [Dropbox Engineering](https://dropbox.tech/)
+* [Engineering at Quora](https://quoraengineering.quora.com/)
+* [Etsy Engineering](https://www.etsy.com/codeascraft)
+* [Facebook Engineering](https://engineering.fb.com/)
+* [GitHub Engineering](https://github.blog/category/engineering/)
+* [Google Research](https://research.google/)
+* [Groupon Engineering](https://medium.com/groupon-eng)
+* [High Scalability](http://highscalability.com/)
+* [Instacart Tech](https://tech.instacart.com/)
+* [Instagram Engineering](https://instagram-engineering.com/)
+* [Lyft Engineering](https://eng.lyft.com/)
+* [Meta Engineering](https://engineering.fb.com/)
+* [Microsoft Tech Blogs](https://devblogs.microsoft.com/)
+* [MongoDB Engineering](https://engineering.mongodb.com/)
+* [Netflix TechBlog](https://netflixtechblog.com/)
+* [PayPal Engineering](https://medium.com/paypal-tech)
+* [Pinterest Engineering](https://medium.com/pinterest-engineering)
+* [Quora Engineering](https://quoraengineering.quora.com/)
+* [Reddit Blog](https://www.redditinc.com/blog)
+* [Salesforce Engineering](https://engineering.salesforce.com/)
+* [Shopify Engineering](https://shopify.engineering/)
+* [Slack Engineering](https://slack.engineering/)
+* [Spotify Labs](https://engineering.atspotify.com/)
+* [Stripe Engineering](https://stripe.com/blog/engineering)
+* [System Design Primer](https://github.com/donnemartin/system-design-primer)
+* [Twitter Engineering](https://blog.twitter.com/engineering)
+* [Uber Engineering](https://eng.uber.com/)
+* [Yahoo Engineering](https://yahooeng.tumblr.com/)
+* [Yelp Engineering](https://engineeringblog.yelp.com/)
+* [Zoom Engineering](https://medium.com/zoom-developer-blog)
+
+#### Geliştirme aşamasında
+
+Aşağıdaki konular üzerinde çalışıyorum, katkılarınızı bekliyorum:
+
+| Konu | |
+|---|---|
+| Daha fazla kodlama sorunu | [Katkıda Bulunun](#nasıl-katkıda-bulunulur) |
+| Daha fazla sistem tasarım görüşme soruları | [Katkıda Bulunun](#nasıl-katkıda-bulunulur) |
+| Dağıtılmış sistem tasarım desenleri | [Katkıda Bulunun](#nasıl-katkıda-bulunulur) |
+| Ölçeklenebilirlik, Erişilebilirlik | [Katkıda Bulunun](#nasıl-katkıda-bulunulur) |
+| Ek sistem tasarım görüşme soruları | [Katkıda Bulunun](#nasıl-katkıda-bulunulur) |
+
+## İletişim bilgileri
+
+Sorularınız, yorumlarınız veya önerileriniz için:
+
+* [GitHub issue](https://github.com/donnemartin/system-design-primer/issues/new)
+* [Gitter](https://gitter.im/system-design-primer/Lobby)
+* [Twitter](https://twitter.com/donne_martin)
+
+## Lisans
+
+*Bu proje, [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.tr) lisansı altında lisanslanmıştır.*
+
